@@ -27,14 +27,14 @@
   "homepage": "https://github.com/IPSME/npm-reflector-webbr-ws#readme",
   "dependencies": {
     "@ipsme/msgcache-dedup": "^0.1.16",
-    "@ipsme/msgenv-broadcastchannel": "^0.3.2",
-    "@knev/bitlogr": "^0.2.2",
+    "@ipsme/msgenv-broadcastchannel": "^0.3.12",
+    "@knev/bitlogr": "^0.2.12",
     "reconnecting-websocket": "^4.4.0"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "del-cli": "^5.0.0",
-    "rollup": "^3.2.5",
-    "rollup-plugin-dts": "^5.0.0"
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "del-cli": "^6.0.0",
+    "rollup": "^4.31.0",
+    "rollup-plugin-dts": "^6.1.1"
   }
 }
