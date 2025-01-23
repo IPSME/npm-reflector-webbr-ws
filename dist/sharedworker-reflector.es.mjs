@@ -1,16 +1,17 @@
 // console.log('OUT', __name({variableName}) );
 
-function labelsToBigInt_$2(ref, obj, ignore= false) {
+function l_toBigInt_$1(ref, obj, ignore= false) {
+	console.assert(ref !== BigInt(0), 'no labels initialized');
 	let bigInt = BigInt(0);
-	for (const [t,v] of Object.entries(obj)) {
-		if ( ( ignore || v ) && ref[t])
-			bigInt|= BigInt( ref[t] );			
+	for (const [k,v] of Object.entries(obj)) {
+		if ( ( ignore || v ) && ref[k])
+			bigInt|= BigInt( ref[k] );			
 		// console.log('0b'+ bigInt.toString(2) );
 	}
 	return bigInt;
 }
 
-function l_LL(obj, x) {
+function l_LL_(obj, x) {
 	let obj_new= {};
 	for (var [k,v] of Object.entries(obj))
 		obj_new[k]= v<<x;
@@ -33,7 +34,7 @@ let BitLogr$2 = class BitLogr {
 		this._Bint_labels= BigInt(0);
 		this._Bint_toggled= BigInt(0);
 
-		BitLogr$2.prototype['log']= function (nr_logged, /* ... */ ) {
+		BitLogr.prototype['log']= function (nr_logged, /* ... */ ) {
 			// console.log('NOP')
 		};
 	}
@@ -56,9 +57,14 @@ let BitLogr$2 = class BitLogr {
 
 	get toggled() { return this._Bint_toggled; }
 	set toggled(obj) {
-		this._Bint_toggled= labelsToBigInt_$2(this._Bint_labels, obj);
+		this._Bint_toggled= l_toBigInt_$1(this._Bint_labels, obj);
 
-		BitLogr$2.prototype['log']= function (nr_logged, /* ... */ ) {
+		if (this._Bint_toggled === BigInt(0)) {
+			console.log('adlkjasdlfk');
+			return;
+		}
+
+		BitLogr.prototype['log']= function (nr_logged, /* ... */ ) {
 			if ( (BigInt(nr_logged) & this._Bint_toggled) === BigInt(0))
 				return false;
 		
@@ -75,11 +81,12 @@ let BitLogr$2 = class BitLogr {
 
 // console.log('OUT', __name({variableName}) );
 
-function labelsToBigInt_$1(ref, obj, ignore= false) {
+function l_toBigInt_(ref, obj, ignore= false) {
+	console.assert(ref !== BigInt(0), 'no labels initialized');
 	let bigInt = BigInt(0);
-	for (const [t,v] of Object.entries(obj)) {
-		if ( ( ignore || v ) && ref[t])
-			bigInt|= BigInt( ref[t] );			
+	for (const [k,v] of Object.entries(obj)) {
+		if ( ( ignore || v ) && ref[k])
+			bigInt|= BigInt( ref[k] );			
 		// console.log('0b'+ bigInt.toString(2) );
 	}
 	return bigInt;
@@ -101,7 +108,7 @@ let BitLogr$1 = class BitLogr {
 		this._Bint_labels= BigInt(0);
 		this._Bint_toggled= BigInt(0);
 
-		BitLogr$1.prototype['log']= function (nr_logged, /* ... */ ) {
+		BitLogr.prototype['log']= function (nr_logged, /* ... */ ) {
 			// console.log('NOP')
 		};
 	}
@@ -124,9 +131,14 @@ let BitLogr$1 = class BitLogr {
 
 	get toggled() { return this._Bint_toggled; }
 	set toggled(obj) {
-		this._Bint_toggled= labelsToBigInt_$1(this._Bint_labels, obj);
+		this._Bint_toggled= l_toBigInt_(this._Bint_labels, obj);
 
-		BitLogr$1.prototype['log']= function (nr_logged, /* ... */ ) {
+		if (this._Bint_toggled === BigInt(0)) {
+			console.log('adlkjasdlfk');
+			return;
+		}
+
+		BitLogr.prototype['log']= function (nr_logged, /* ... */ ) {
 			if ( (BigInt(nr_logged) & this._Bint_toggled) === BigInt(0))
 				return false;
 		
@@ -229,8 +241,8 @@ LOGR_$1.labels= l_$1;
 const l_ = {
 	// Reflector_IPC_main : 0b1 << 0,
 	DUPS				: 0b1 << 1,	// duplicates
-	... l_LL(l_$2, 4),
-	... l_LL(l_$1, 8),
+	... l_LL_(l_$2, 4),
+	... l_LL_(l_$1, 8),
 };
 
 let LOGR_= new BitLogr$2();
